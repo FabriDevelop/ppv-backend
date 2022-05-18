@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+  mysql:
+    image: mysql:8.0.17
+    container_name: localmysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: SistemaInventario
+    ports:
+      - 3306:3306
+    volumes:
+      - /your_local/path:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - PMA_HOST=mysql
+    ports:
+      - 8080:80

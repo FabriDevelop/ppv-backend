@@ -1,0 +1,144 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Cliente{
+  id Int @id @default(autoincrement())
+  nombre String 
+  apellido String
+  cedula String @unique
+  telefono String @unique
+  direccion String @unique
+  correo String @unique
+  pedidos Pedido[]
+  activo Boolean
+}
+
+model Producto {
+  id Int @id @default(autoincrement())
+  nombre String 
+  descripcion String
+  precio_unitario Decimal
+  detalles_compra DetalleCompra[]
+  detalles_venta DetalleVenta[]
+  activo Boolean
+}
+
+model Proveedor{
+  id Int @id @default(autoincrement())
+  nombre String
+  apellido String
+  cedula String @unique
+  telefono String @unique
+  direccion String 
+  correo String @unique
+  compras Compra[]
+  activo Boolean
+}
+
+model Empleado{
+  id Int @id @default(autoincrement())
+  nombre String
+  apellido String
+  cedula String @unique
+  telefono String @unique
+  direccion String 
+  correo String
+  clave String
+  rol String
+  ventas Venta[]
+  compras Compra[]
+  pedido Pedido[]
+  activo Boolean
+}
+
+model Venta {
+  id Int @id @default(autoincrement())
+  fecha_venta DateTime
+  Empleado Empleado @relation(fields: [empleado_id], references: [id])
+  empleado_id Int
+  detalles_venta DetalleVenta[]
+  activo Boolean
+}
+
+model Compra{
+  id Int @id @default(autoincrement())
+  Empleado Empleado @relation(fields: [empleado_id], references: [id])
+  empleado_id Int
+  Proveedor Proveedor @relation(fields: [proveedor_id],references: [id])
+  proveedor_id Int
+  fecha DateTime @default(now())
+  detalle_compra DetalleCompra[]
+  activo Boolean
+}
+
+model Produccion{
+  id Int @id @default(autoincrement())
+  fecha_inicio DateTime
+  fecha_finalizacion DateTime
+  detalles_pedido DetallePedido[]
+  activo Boolean
+
+}
+
+model Pedido{
+  id Int @id @default(autoincrement())
+  Empleado Empleado @relation(fields:[empleado_id],references: [id])
+  empleado_id Int
+  Cliente Cliente @relation(fields: [cliente_id],references: [id])
+  cliente_id Int
+  detalles_pedido DetallePedido[]
+  activo Boolean
+
+}
+
+model MateriaPrima{
+  id Int @id @default(autoincrement())
+  nombre String
+  descripcion String
+  instrucciones String
+  cantidad String
+  precio_unitario Decimal @default(0)
+  detalles_produccion DetalleProduccion[]
+  activo Boolean
+
+}
+
+model DetalleProduccion{
+  id Int @id @default(autoincrement())
+  MateriaPrima MateriaPrima @relation(fields: [materia_prima_id], references: [id])
+  materia_prima_id Int
+}
+
+model DetallePedido{
+  id Int @id @default(autoincrement())
+  Pedido Pedido @relation(fields: [pedido_id],references: [id])
+  pedido_id Int
+  Produccion Produccion @relation(fields: [produccion_id],references: [id])
+  produccion_id Int
+}
+
+model DetalleCompra{
+  id Int @id @default(autoincrement())
+  Compra Compra @relation(fields: [compra_id],references: [id])
+  compra_id Int
+  Producto Producto @relation(fields: [producto_id],references: [id])
+  producto_id Int
+  cantidad Int
+  precio_unitario Decimal
+  descuento Decimal
+}
+
+model DetalleVenta{
+  id Int @id @default(autoincrement())
+  Venta Venta @relation(fields: [venta_id],references: [id])
+  venta_id Int
+  Producto Producto @relation(fields: [producto_id], references: [id])
+  producto_id Int
+}
+

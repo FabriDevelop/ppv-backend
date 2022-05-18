@@ -1,0 +1,17 @@
+{
+  "name": "ppv-api-rest",
+  "version": "1.0.0",
+  "description": "Api Rest para el sistema de inventario para la empresa La Pizarra, Puertas y Ventanas",
+  "main": "index.js",
+  "scripts": {
+    "new-migration": "prisma migrate dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^3.14.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.14.0"
+  }
+}
