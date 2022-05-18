@@ -4,7 +4,7 @@
   "description": "Api Rest para el sistema de inventario para la empresa La Pizarra, Puertas y Ventanas",
   "main": "index.js",
   "scripts": {
-    "new-migration": "prisma migrate dev"
+    "migrate": "prisma migrate dev"
   },
   "author": "",
   "license": "ISC",
