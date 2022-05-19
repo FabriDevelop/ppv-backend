@@ -16,7 +16,7 @@ model Cliente{
   direccion String @unique
   correo String @unique
   pedidos Pedido[]
-  activo Boolean
+  activo Boolean @default(true)
 }
 
 model Producto {
