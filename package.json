@@ -6,7 +6,7 @@
   "prettier": "prettier-config-standard",
   "scripts": {
     "migrate": "prisma migrate dev",
-    "dev": "nodemon src/index.ts"
+    "dev": "nodemon"
   },
   "author": "cfardev",
   "license": "ISC",

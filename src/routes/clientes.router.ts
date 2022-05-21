@@ -33,8 +33,11 @@ router.patch(
     try {
       const { id } = req.params
       const body = req.body
+      console.log(id, body)
       res.status(201).json(await service.update(Number(id), body))
-    } catch (error) {}
+    } catch (error) {
+      next(error)
+    }
   }
 )
 

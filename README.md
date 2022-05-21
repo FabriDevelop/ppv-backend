@@ -12,6 +12,10 @@
 
 `docker-compose -d up phpmyadmin`
 
-3. Ejecutar migraciones
+o
+
+`docker-compose up`
+
+4. Ejecutar migraciones
 
 `npm run migrate`
