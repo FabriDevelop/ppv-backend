@@ -19,3 +19,7 @@ o
 4. Ejecutar migraciones
 
 `npm run migrate`
+
+5. iniciar servidor modo desarrollo
+
+`npm run dev`
