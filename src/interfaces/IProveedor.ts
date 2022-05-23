@@ -6,6 +6,5 @@ export default interface IProveedor{
     "telefono" : string
     "direccion" : string
     "correo" : string
-    "compras" : string
     "activo" : boolean
 }

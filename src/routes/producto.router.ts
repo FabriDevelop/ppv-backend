@@ -1,16 +1,12 @@
 import { NextFunction, Request, Response, Router } from 'express'
-import { updateLanguageServiceSourceFile } from 'typescript';
 import IProducto from '../interfaces/IProducto'
 import validatorHandler from '../middleware/validator.handler'
-import { editarClienteSchema } from '../schemas/cliente.schema';
-//TODO: crear schema de producto
 import {
     crearProductoSchema,
     obtenerProductoSchema,
     editarProductoSchema
 } from '../schemas/producto.schema';
 import ProductoService from '../services/producto.service';
-//TODO: crear servicio de producto
 
 const router = Router();
 const service = new ProductoService();
