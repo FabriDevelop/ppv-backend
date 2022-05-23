@@ -54,7 +54,7 @@ model Empleado{
   ventas Venta[]
   compras Compra[]
   pedido Pedido[]
-  activo Boolean
+  activo Boolean @default(true)
 }
 
 model Venta {
