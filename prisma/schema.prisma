@@ -38,7 +38,7 @@ model Proveedor{
   direccion String 
   correo String @unique
   compras Compra[]
-  activo Boolean
+  activo Boolean @default(true)
 }
 
 model Empleado{
@@ -63,7 +63,7 @@ model Venta {
   Empleado Empleado @relation(fields: [empleado_id], references: [id])
   empleado_id Int
   detalles_venta DetalleVenta[]
-  activo Boolean
+  activo  Boolean @default(true)
 }
 
 model Compra{
@@ -74,7 +74,7 @@ model Compra{
   proveedor_id Int
   fecha DateTime @default(now())
   detalle_compra DetalleCompra[]
-  activo Boolean
+  activo  Boolean @default(true)
 }
 
 model Produccion{
@@ -82,7 +82,7 @@ model Produccion{
   fecha_inicio DateTime
   fecha_finalizacion DateTime
   detalles_pedido DetallePedido[]
-  activo Boolean
+  activo Boolean @default(true)
 
 }
 
@@ -93,7 +93,7 @@ model Pedido{
   Cliente Cliente @relation(fields: [cliente_id],references: [id])
   cliente_id Int
   detalles_pedido DetallePedido[]
-  activo Boolean
+  activo  Boolean @default(true)
 
 }
 
@@ -105,7 +105,7 @@ model MateriaPrima{
   cantidad String
   precio_unitario Decimal @default(0)
   detalles_produccion DetalleProduccion[]
-  activo Boolean
+  activo  Boolean @default(true)
 
 }
 
