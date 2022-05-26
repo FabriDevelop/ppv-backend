@@ -1,7 +1,7 @@
 {
   "name": "ppv-api-rest",
   "version": "1.0.0",
-  "description": "Api Rest para el sistema de inventario para la empresa La Pizarra, Puertas y Ventanas",
+  "description": "API Rest para el sistema de inventario para la empresa La Pizarra, Puertas y Ventanas",
   "main": "index.js",
   "prettier": "prettier-config-standard",
   "scripts": {

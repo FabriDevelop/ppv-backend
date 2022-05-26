@@ -9,8 +9,7 @@ class ClienteService {
     return clienteNuevo
   }
 
-  async update(id: number, cambios: ICliente):Promise<ICliente> {
-    console.log(cambios)
+  async update(id: number, cambios: ICliente): Promise<ICliente> {
     const clienteActualizado = await prisma.cliente.update({
       where: {
         id

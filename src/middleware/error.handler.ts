@@ -1,8 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import { Err } from 'joi'
 
-function logErrors(err: Err, req: Request, res: Response, next: NextFunction) {
-  console.error(err)
+function logErrors(err: any, req: Request, res: Response, next: NextFunction) {
+  console.error(err.m)
   next(err)
 }
 

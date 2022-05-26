@@ -1,28 +1,27 @@
-import Joi from "joi";
+import Joi from 'joi'
+
 const id = Joi.number().integer()
 const nombre = Joi.string()
 const descripcion = Joi.string()
-const precio_unitario = Joi.number()
+const precioUnitario = Joi.number()
 const activo = Joi.boolean()
 
 const crearProductoSchema = Joi.object({
-    nombre: nombre.required(),
-    descripcion: descripcion.optional(),
-    precio_unitario: precio_unitario.required(),
-    activo : activo.optional()
+  nombre: nombre.required(),
+  descripcion: descripcion.optional(),
+  precio_unitario: precioUnitario.required(),
+  activo: activo.optional()
 })
 
 const obtenerProductoSchema = Joi.object({
-    id: id.required()
+  id: id.required()
 })
 
 const editarProductoSchema = Joi.object({
-    nombre,
-    descripcion,
-    precio_unitario,
-    activo
+  nombre,
+  descripcion,
+  precioUnitario,
+  activo
 })
 
 export { obtenerProductoSchema, crearProductoSchema, editarProductoSchema }
-
-

@@ -19,13 +19,18 @@ model Cliente{
   activo Boolean @default(true)
 }
 
-model Producto {
+model Empleado{
   id Int @id @default(autoincrement())
-  nombre String 
-  descripcion String
-  precio_unitario Decimal
-  detalles_compra DetalleCompra[]
-  detalles_venta DetalleVenta[]
+  nombre_usuario String
+  clave String
+  nombre String
+  apellido String
+  cedula String @unique
+  telefono String @unique
+  direccion String 
+  correo String
+  compras Compra[]
+  pedido Pedido[]
   activo Boolean @default(true)
 }
 
@@ -37,108 +42,76 @@ model Proveedor{
   telefono String @unique
   direccion String 
   correo String @unique
-  compras Compra[]
   activo Boolean @default(true)
-}
-
-model Empleado{
-  id Int @id @default(autoincrement())
-  nombre String
-  apellido String
-  cedula String @unique
-  telefono String @unique
-  direccion String 
-  correo String
-  clave String
-  rol String
-  ventas Venta[]
-  compras Compra[]
-  pedido Pedido[]
-  activo Boolean @default(true)
-}
-
-model Venta {
-  id Int @id @default(autoincrement())
-  fecha_venta DateTime
-  Empleado Empleado @relation(fields: [empleado_id], references: [id])
-  empleado_id Int
-  detalles_venta DetalleVenta[]
-  activo  Boolean @default(true)
-}
-
-model Compra{
-  id Int @id @default(autoincrement())
-  Empleado Empleado @relation(fields: [empleado_id], references: [id])
-  empleado_id Int
-  Proveedor Proveedor @relation(fields: [proveedor_id],references: [id])
-  proveedor_id Int
-  fecha DateTime @default(now())
-  detalle_compra DetalleCompra[]
-  activo  Boolean @default(true)
-}
-
-model Produccion{
-  id Int @id @default(autoincrement())
-  fecha_inicio DateTime
-  fecha_finalizacion DateTime
-  detalles_pedido DetallePedido[]
-  activo Boolean @default(true)
-
-}
-
-model Pedido{
-  id Int @id @default(autoincrement())
-  Empleado Empleado @relation(fields:[empleado_id],references: [id])
-  empleado_id Int
-  Cliente Cliente @relation(fields: [cliente_id],references: [id])
-  cliente_id Int
-  detalles_pedido DetallePedido[]
-  activo  Boolean @default(true)
-
+  materia_prima MateriaPrima[]
 }
 
 model MateriaPrima{
   id Int @id @default(autoincrement())
   nombre String
   descripcion String
-  instrucciones String
-  cantidad String
-  precio_unitario Decimal @default(0)
+  precio_unitario Decimal
+  existencias Int
+  existencias_minimas Int
+  Proveedor Proveedor @relation(fields: [id_proveedor], references: [id])
+  id_proveedor Int
+  detalles_compra DetalleCompra[]
   detalles_produccion DetalleProduccion[]
-  activo  Boolean @default(true)
 
 }
 
-model DetalleProduccion{
-  id Int @id @default(autoincrement())
-  MateriaPrima MateriaPrima @relation(fields: [materia_prima_id], references: [id])
-  materia_prima_id Int
-}
 
-model DetallePedido{
+model Compra{
   id Int @id @default(autoincrement())
-  Pedido Pedido @relation(fields: [pedido_id],references: [id])
-  pedido_id Int
-  Produccion Produccion @relation(fields: [produccion_id],references: [id])
-  produccion_id Int
+  Empleado Empleado @relation(fields: [id_empleado], references: [id])
+  id_empleado Int
+  fecha DateTime @default(now())
+  detalle_compra DetalleCompra[]
 }
 
 model DetalleCompra{
   id Int @id @default(autoincrement())
   Compra Compra @relation(fields: [compra_id],references: [id])
   compra_id Int
-  Producto Producto @relation(fields: [producto_id],references: [id])
-  producto_id Int
+  MateriaPrima MateriaPrima @relation(fields: [id_materia_prima],references: [id])
+  id_materia_prima Int
   cantidad Int
-  precio_unitario Decimal
   descuento Decimal
 }
 
-model DetalleVenta{
+
+model Produccion{
   id Int @id @default(autoincrement())
-  Venta Venta @relation(fields: [venta_id],references: [id])
-  venta_id Int
-  Producto Producto @relation(fields: [producto_id], references: [id])
-  producto_id Int
+  fecha_inicio DateTime
+  fecha_finalizacion DateTime
+  costo_mano_de_obra Decimal
+  activo Boolean @default(true)
+  detalles DetalleProduccion[]
+  pedidos Pedido[]
 }
 
+model DetalleProduccion{
+  id Int @id @default(autoincrement())
+  Produccion Produccion @relation(fields: [id_produccion],references: [id])
+  id_produccion Int
+  MateriaPrima MateriaPrima @relation(fields: [materia_prima_id], references: [id])
+  materia_prima_id Int
+  cantidad_utilizada Int
+}
+
+model Pedido{
+  id Int @id @default(autoincrement())
+  detalle_pedido String
+  Empleado Empleado @relation(fields:[id_empleado],references: [id])
+  id_empleado Int
+  Cliente Cliente @relation(fields: [id_cliente],references: [id])
+  id_cliente Int
+  Produccion Produccion @relation(fields: [id_produccion],references: [id])
+  id_produccion Int
+  precio_pedido Decimal
+  dinero_abonado Decimal
+  fecha_pedido DateTime
+  fecha_entrega DateTime
+  cancelado Boolean @default(false)
+  activo  Boolean @default(true)
+}
